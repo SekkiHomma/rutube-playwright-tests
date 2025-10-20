@@ -8,7 +8,11 @@ export class BasePage {
   }
 
   async closeCookiesAlert() {
+    const popUp = this.page.getByRole('button', { name: 'Закрыть' });
     await this.page.getByRole('button', { name: 'Ок', exact: true }).click();
-    await this.page.getByRole('button', { name: 'Закрыть' }).click();
+    if (await popUp.isVisible()) {
+      await popUp.click();
+    } else {
+    }
   }
 }
