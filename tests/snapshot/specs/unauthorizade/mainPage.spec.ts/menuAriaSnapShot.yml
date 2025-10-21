@@ -3,9 +3,6 @@
     - listitem:
       - link "Главная": Главная …
     - listitem:
-      - link /RUTUBE \d+ лет …/:
-        - /url: /feeds/birthday19/
-    - listitem:
       - link "RUTUBE для блогеров …":
         - /url: /for_creators
     - listitem:

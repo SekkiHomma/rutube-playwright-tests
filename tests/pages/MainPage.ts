@@ -5,6 +5,12 @@ export class MainPage extends BasePage {
   private readonly headearLocator: Locator;
   private readonly categoriesLocator: Locator;
   private readonly menuLocator: Locator;
+  private readonly headerAddButtonLocator: Locator;
+  private readonly headerNotificationButtonLocator: Locator;
+  private readonly headerLogInButtonLocator: Locator;
+  private readonly headerAddButtonPopUpListLocator: Locator;
+  private readonly headerNotificationPopUpLocator: Locator;
+  private readonly authorizationModalLocator: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -13,6 +19,19 @@ export class MainPage extends BasePage {
       hasText: /^ГлавнаяФильмыСериалыТелешоуСпортБлогерыНовостиМузыкаПодкастыДетямТВ онлайн$/,
     });
     this.menuLocator = this.page.getByLabel('Облегченная панель навигации');
+    this.headerAddButtonLocator = this.page.getByRole('button', { name: 'Добавить' });
+    this.headerNotificationButtonLocator = this.page.getByRole('button', { name: 'Уведомления' });
+    this.headerLogInButtonLocator = this.page.getByRole('button', { name: 'Вход и регистрация' });
+    this.headerAddButtonPopUpListLocator = this.page.locator(
+      '.wdp-header-right-module__uploader ul',
+    );
+    this.headerNotificationPopUpLocator = this.page.locator(
+      '.wdp-notifications-nothing-stub-module__wrapper',
+    );
+    this.authorizationModalLocator = this.page
+      .locator('iframe[title="Multipass"]')
+      .contentFrame()
+      .getByText('ТелефонПродолжитьВойти с помощьюYandex SmartCaptcha - Обработка данных');
   }
 
   async open() {
@@ -20,14 +39,46 @@ export class MainPage extends BasePage {
   }
 
   async headerHasCorrectAriaSnapShot() {
-    await expect(this.headearLocator).toMatchAriaSnapshot();
+    await expect(this.headearLocator).toMatchAriaSnapshot({ name: 'headerAriaSnapShot.yml' });
   }
 
   async categoriesHasCorrectAriaSnapShot() {
-    await expect(this.categoriesLocator).toMatchAriaSnapshot();
+    await expect(this.categoriesLocator).toMatchAriaSnapshot({
+      name: 'categoriesAriaSnapShot.yml',
+    });
   }
 
   async menuHasCorrectAriaSnapShot() {
-    await expect(this.menuLocator).toMatchAriaSnapshot();
+    await expect(this.menuLocator).toMatchAriaSnapshot({ name: 'menuAriaSnapShot.yml' });
+  }
+
+  async openAddPopUpList() {
+    await this.headerAddButtonLocator.click();
+  }
+
+  async openNotificationPopUp() {
+    await this.headerNotificationButtonLocator.click();
+  }
+
+  async openAuthorizationModal() {
+    await this.headerLogInButtonLocator.click();
+  }
+
+  async addPopupListHasCorrectAriaSnapshot() {
+    await expect(this.headerAddButtonPopUpListLocator).toMatchAriaSnapshot({
+      name: 'addButtonPopUpList.yml',
+    });
+  }
+
+  async notificationPopUpHasCorrectAriaSnapshot() {
+    await expect(this.headerNotificationPopUpLocator).toMatchAriaSnapshot({
+      name: 'notificationPopUp.yml',
+    });
+  }
+
+  async authorizahtionModalHasCorectSnapShot() {
+    await expect(this.authorizationModalLocator).toMatchAriaSnapshot({
+      name: 'authorizationModal.yml',
+    });
   }
 }
