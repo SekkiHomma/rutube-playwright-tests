@@ -16,5 +16,8 @@
     - paragraph:
       - img
       - text: Безопасный режим
-  - button "Вход и регистрация":
-    - paragraph: Вход и регистрация
+  - button "Оформить подписку":
+    - paragraph:
+      - img
+      - text: Оформить подписку
+  - img "Иконка канала channel59275146"
